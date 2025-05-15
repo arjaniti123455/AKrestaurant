@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AK Restaurant</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Playfair+Display:wght@700&display=swap');
+
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #faf8f5;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Header */
+    header {
+      background: #222;
+      color: #fff;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e28525;
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      margin: 0 0 1rem 0;
+      letter-spacing: 4px;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    .btn {
+      background: #e28525;
+      color: #fff;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(226,133,37,0.6);
+      transition: background 0.3s ease;
+    }
+    .btn:hover, .btn:focus {
+      background: #c66f12;
+      outline: none;
+    }
+
+    /* About Section */
+    section {
+      padding: 5rem 0 3rem;
+    }
+    section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #e28525;
+    }
+    .about-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      text-align: center;
+      color: #555;
+    }
+
+    /* Menu Section */
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto 0;
+    }
+    .menu-item {
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(226,133,37,0.2);
+      border-radius: 15px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+    .menu-item:hover {
+      transform: translateY(-8px);
+    }
+    .menu-item img {
+      width: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(226,133,37,0.4);
+    }
+    .menu-item h4 {
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+      color: #e28525;
+    }
+    .menu-item p {
+      font-size: 1rem;
+      color: #777;
+      margin: 0 0 1rem;
+      text-align: center;
+      flex-grow: 1;
+    }
+    .menu-item span {
+      font-weight: 700;
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 1rem;
+      max-width: 1000px;
+      margin: 2rem auto 0;
+    }
+    .gallery img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 8px rgba(226,133,37,0.3);
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Reservation Section */
+    .reservation-form {
+      max-width: 600px;
+      margin: 2rem auto 0;
+      background: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(226,133,37,0.2);
+    }
+    .reservation-form h3 {
+      color: #e28525;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .reservation-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #444;
+    }
+    .reservation-form input,
+    .reservation-form select,
+    .reservation-form textarea {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .reservation-form input:focus,
+    .reservation-form select:focus,
+    .reservation-form textarea:focus {
+      border-color: #e28525;
+      outline: none;
+    }
+    .reservation-form button {
+      display: block;
+      width: 100%;
+      background: #e28525;
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.8rem;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(226,133,37,0.6);
+      transition: background 0.3s ease;
+    }
+    .reservation-form button:hover,
+    .reservation-form button:focus {
+      background: #c66f12;
+      outline: none;
+    }
+
+    /* Contact Section */
+    .contact-info {
+      max-width: 1000px;
+      margin: 2rem auto 3rem;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      color: #555;
+    }
+    .contact-item {
+      flex: 1 1 200px;
+      background: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(226,133,37,0.1);
+      text-align: center;
+    }
+    .contact-item h4 {
+      color: #e28525;
+      margin-bottom: 0.5rem;
+    }
+    .contact-item p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #ddd;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+      }
+      .menu-items, .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+      .contact-info {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .menu-items, .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>AK</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">Rreth Nesh</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Galeri</a></li>
+          <li><a href="#reservation">Rezervime</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>AK Restaurant</h2>
+    <p>Krijojmë shije të paharrueshme në çdo pjatë.</p>
+    <a href="#reservation" class="btn">Rezervo Tani</a>
+  </section>
+
+  <section id="about">
+    <h3>Rreth Nesh</h3>
+    <p class="about-text">
+      AK Restaurant është vendi ku tradita takohet me shijen moderne. Ne shërbejmë ushqim të freskët, me përbërës lokalë dhe përkushtim ndaj cilësisë. Atmosfera jonë e ngrohtë dhe shërbimi i dedikuar do t'ju bëjnë të ndiheni si në shtëpi.
+    </p>
+  </section>
+
+  <section id="menu">
+    <h3>Menu</h3>
+    <div class="menu-items">
+      <article class="menu-item">
+        <img src="https://images.unsplash.com/photo-1601924582975-f0c8420dcea0?auto=format&fit=crop&w=150&q=80" alt="Pica Margherita" />
+        <h4>Pica Margherita</h4>
+        <p>Klasike italiane me domate, mocarela dhe bazilikë të freskët.</p>
+        <span>€8.50</span>
+      </article>
+      <article class="menu-item">
+        <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb23?auto=format&fit=crop&w=150&q=80" alt="Pasta Carbonara" />
+        <h4>Pasta Carbonara</h4>
+        <p>Pasta me vezë, guanciale dhe parmigiano reggiano në salcë kremi.</p>
+        <span>€11.00</span>
+      </article>
+      <article class="menu-item">
+        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=150&q=80" alt="Sallatë Greke" />
+        <h4>Sallatë Greke</h4>
+        <p>Sallatë me domate, kastravec, ullinj, djathë feta dhe oriz.</p>
+        <span>€6.50</span>
+      </article>
+      <article class="menu-item">
+        <img src="https://images.unsplash.com/photo-1543352634-cf31b9a2bd5e?auto=format&fit=crop&w=150&q=80" alt="Sorbet Limon" />
+        <h4>Sorbet Limon</h4>
+        <p>Ëmbëlsirë freskuese me shije limoni dhe teksturë të butë.</p>
+        <span>€4.00</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h3>Galeri</h3>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80" alt="Ambienti i restorantit 1" />
+      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=400&q=80" alt="Ambienti i restorantit 2" />
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Pjata e veçantë" />
+      <img src="https://images.unsplash.com/photo-1476680421513-8b462c8a901e?auto=format&fit=crop&w=400&q=80" alt="Shërbimi në restorant" />
+    </div>
+  </section>
+
+  <section id="reservation">
+    <div class="reservation-form">
+      <h3>Rezervim</h3>
+      <form id="reservationForm" novalidate>
+        <label for="name">Emri</label>
+        <input type="text" id="name" name="name" placeholder="Shkruani emrin tuaj" required />
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="juaj@email.com" required />
+        
+        <label for="phone">Numri i Telefonit</label>
+        <input type="tel" id="phone" name="phone" placeholder="+355 6xx xxx xxx" required pattern="^\+?\d{7,15}$" />
+        
+        <label for="persons">Numri i Personave</label>
+        <select id="persons" name="persons" required>
+          <option value="">Zgjidhni</option>
+          <option value="1">1 Person</option>
+          <option value="2">2 Persona</option>
+          <option value="3">3 Persona</option>
+          <option value="4">4 Persona</option>
+          <option value="5">5 Persona</option>
+          <option value="6">6 Persona</option>
+          <option value="7">7 Persona</option>
+          <option value="8+">8+ Persona</option>
+        </select>
+        
+        <label for="date">Data</label>
+        <input type="date" id="date" name="date" required min="" />
+        
+        <label for="time">Ora</label>
+        <input type="time" id="time" name="time" required />
+        
+        <button type="submit" class="btn">Dërgo Rezervimin</button>
+      </form>
+      <p id="formMessage" style="text-align:center; color:#e28525; font-weight:600; display:none;"></p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-info container">
+      <div class="contact-item">
+        <h4>Adresa</h4>
+        <p>Rruga e Bukurisë 123, Tiranë, Shqipëri</p>
+      </div>
+      <div class="contact-item">
+        <h4>Telefon</h4>
+        <p>+355 69 123 4567</p>
+      </div>
+      <div class="contact-item">
+        <h4>Email</h4>
+        <p>info@akrestaurant.al</p>
+      </div>
+      <div class="contact-item">
+        <h4>Orari i Punës</h4>
+        <p>Hën-E Prem, 09:00 - 23:00</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2024 AK Restaurant. Të gjitha të drejtat e rezervuara.
+  </footer>
+
+  <script>
+    // Set minimum date of reservation date input to today
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Handle reservation form submission
+    const form = document.getElementById('reservationForm');
+    const formMessage = document.getElementById('formMessage');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (form.checkValidity()) {
+        formMessage.style.display = 'block';
+        formMessage.textContent = 'Faleminderit për rezervimin tuaj! Ne do t\'ju kontaktojmë së shpejti.';
+        form.reset();
+      } else {
+        formMessage.style.display = 'block';
+        formMessage.textContent = 'Ju lutem plotësoni të gjitha fushat e kërkuara saktë.';
+      }
+    });
+  </script>
+</body>
+</html>
+
